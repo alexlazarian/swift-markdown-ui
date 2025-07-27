@@ -25,6 +25,7 @@ public struct RelativeSize: Hashable {
   enum Unit: Hashable {
     case em
     case rem
+    case pt
   }
 
   var value: CGFloat
@@ -45,6 +46,12 @@ extension RelativeSize {
     .init(value: value, unit: .rem)
   }
 
+  /// Creates a size value in points (absolute size).
+  /// This is a convenience method for creating absolute font sizes.
+  public static func pt(_ value: CGFloat) -> RelativeSize {
+    .init(value: value, unit: .pt) // Using pt unit for absolute points
+  }
+
   func points(relativeTo fontProperties: FontProperties? = nil) -> CGFloat {
     let fontProperties = fontProperties ?? .init()
 
@@ -53,6 +60,8 @@ extension RelativeSize {
       return round(value * fontProperties.scaledSize)
     case .rem:
       return round(value * fontProperties.size)
+    case .pt:
+      return value // Absolute points, no scaling
     }
   }
 }

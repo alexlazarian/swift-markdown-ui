@@ -32,6 +32,9 @@ public struct FontSize: TextStyle {
         attributes.fontProperties?.scale *= relativeSize.value
       case .rem:
         attributes.fontProperties?.scale = relativeSize.value
+      case .pt:
+        attributes.fontProperties?.size = relativeSize.value
+        attributes.fontProperties?.scale = 1
       }
     }
   }
